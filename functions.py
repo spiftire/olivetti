@@ -26,7 +26,6 @@ def show_picture_plot(pic_size: int, picture_vector, ax: plt.Axes):
 
 
 def arranging_picture_vector_as_picture_array(pic_size, picture_vector):
-    # picture_array = [None] * rows
-    # for i in range(rows):
+    """Takes a picture vector and reshapes it into a square picture array based on pic size"""
     picture_array = picture_vector.reshape(pic_size, pic_size)
     return picture_array
