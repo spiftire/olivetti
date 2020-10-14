@@ -1,11 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 from sklearn.datasets.olivetti_faces import fetch_olivetti_faces
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 import pandas
-from functions import show_picture_plot
+from functions import show_picture_plot, arranging_picture_vector_as_picture_array
 from matplotlib import use
 
 use('Qt5Agg')
@@ -40,8 +41,25 @@ X_recovered = pca.inverse_transform(X_reduced)
 
 print(X_recovered.shape)
 
-fig, (ax1, ax2) = plt.subplots(1, 2)
-show_picture_plot(16, X_reduced, ax1)
+# fig, (ax1, ax2) = plt.subplots(1, 2)
+fig1 = plt.figure()
+fig1.suptitle('PCA compression and recovery')
+rows = 1
+cols = 2
+gs = gridspec.GridSpec(rows, cols)
+gs00 = gridspec.GridSpecFromSubplotSpec(3, 3, subplot_spec=gs[0])
+gs01 = gridspec.GridSpecFromSubplotSpec(3, 3, subplot_spec=gs[1])
+for i in range(3):
+    for j in range(3):
+        ax00 = fig1.add_subplot(gs00[i, j])
+        pic00 = arranging_picture_vector_as_picture_array(16, X_reduced[i + j])
+        ax00.imshow(pic00)
+
+        ax01 = fig1.add_subplot(gs01[i,j])
+        pic01 = arranging_picture_vector_as_picture_array(64, X_recovered[i+j])
+        ax01.imshow(pic01)
+
+    # show_picture_plot(16, X_reduced, ax1)
 # show_picture_plot(64, X_recovered, ax2)
 
 

@@ -9,25 +9,24 @@ def show_picture_plot(pic_size: int, picture_vector, ax: plt.Axes):
     # Setting new figure
     # fig = plt.figure(constrained_layout=True)
 
-
-    #Setting up gridspec
+    # Setting up gridspec
     ncols = 3
     nrows = 3
     gridspec.GridSpec(ncols=ncols, nrows=nrows)
     rows = picture_vector.shape[0]
 
-    #Initialize the array
+    # Initialize the array
     picture = arranging_picture_vector_as_picture_array(pic_size, picture_vector, rows)
     for col in range(ncols):
         for row in range(nrows):
             fax = ax.add_subplot(gridspec[col, row])
 
-        # ax.subplot(330 + 1 + i)
-            fax.imshow(picture[col+row])
+            # ax.subplot(330 + 1 + i)
+            fax.imshow(picture[col + row])
 
 
-def arranging_picture_vector_as_picture_array(pic_size, picture_vector, rows):
-    picture_array = [None] * rows
-    for i in range(rows):
-        picture_array[i] = picture_vector[i].reshape(pic_size, pic_size)
+def arranging_picture_vector_as_picture_array(pic_size, picture_vector):
+    # picture_array = [None] * rows
+    # for i in range(rows):
+    picture_array = picture_vector.reshape(pic_size, pic_size)
     return picture_array
