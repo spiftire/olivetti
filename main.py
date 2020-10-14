@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 import pandas
+from functions import showPicturePlot
 
 faces = fetch_olivetti_faces()
 X, y = faces['data'], faces['target']
@@ -27,17 +28,22 @@ print(df.head(5))
 scalar = MinMaxScaler()
 X_Scaled = scalar.fit_transform(X)
 
-pca = PCA(n_components=0.99) #Setting the percente of variance should be .95-.99
+pca = PCA(n_components=256) #Setting the percente of variance should be .95-.99
 pca.fit(X_Scaled)
 
 X_reduced = pca.transform(X_Scaled)
 X_recovered = pca.inverse_transform(X_reduced)
 
-print(X_reduced.shape)
+print(X_recovered.shape)
+
+showPicturePlot(16, X_reduced)
 
 
-# plt.figure()
-# plt.subplots(1, 2)
-# plt.subplot(1, 1)
+
+
+
+
+
+# fig.add_subplot(121, 1)
 #todo add image plot of original and recoveded images
 
