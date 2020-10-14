@@ -1,14 +1,33 @@
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import numpy as np
 
 
-def showPicturePlot(picSize, pictureArray):
-    plt.figure()
-    rows = pictureArray.shape[0]
-    reduced_pic = [None] * rows
+def show_picture_plot(pic_size: int, picture_vector, ax: plt.Axes):
+    # a = fig.get_axes()
+    # print(a)
+    # Setting new figure
+    # fig = plt.figure(constrained_layout=True)
+
+
+    #Setting up gridspec
+    ncols = 3
+    nrows = 3
+    gridspec.GridSpec(ncols=ncols, nrows=nrows)
+    rows = picture_vector.shape[0]
+
+    #Initialize the array
+    picture = arranging_picture_vector_as_picture_array(pic_size, picture_vector, rows)
+    for col in range(ncols):
+        for row in range(nrows):
+            fax = ax.add_subplot(gridspec[col, row])
+
+        # ax.subplot(330 + 1 + i)
+            fax.imshow(picture[col+row])
+
+
+def arranging_picture_vector_as_picture_array(pic_size, picture_vector, rows):
+    picture_array = [None] * rows
     for i in range(rows):
-        reduced_pic[i] = pictureArray[i].reshape(picSize, picSize)
-    print(reduced_pic[0].shape)
-    for i in range(0, 9):
-        plt.subplot(330 + 1 + i)
-        plt.imshow(reduced_pic[i])
-    plt.show()
+        picture_array[i] = picture_vector[i].reshape(pic_size, pic_size)
+    return picture_array

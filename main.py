@@ -5,7 +5,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 import pandas
-from functions import showPicturePlot
+from functions import show_picture_plot
+from matplotlib import use
+
+use('Qt5Agg')
+# plt.ion()
 
 faces = fetch_olivetti_faces()
 X, y = faces['data'], faces['target']
@@ -16,7 +20,7 @@ for i in range(0, 9):
     plt.subplot(330 + 1 + i)
     plt.imshow(X[i].reshape(64, 64))
 
-plt.show()
+plt.show(block=False)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.1, random_state=10)
 
@@ -28,7 +32,7 @@ print(df.head(5))
 scalar = MinMaxScaler()
 X_Scaled = scalar.fit_transform(X)
 
-pca = PCA(n_components=256) #Setting the percente of variance should be .95-.99
+pca = PCA(n_components=256)  # Setting the percente of variance should be .95-.99
 pca.fit(X_Scaled)
 
 X_reduced = pca.transform(X_Scaled)
@@ -36,14 +40,15 @@ X_recovered = pca.inverse_transform(X_reduced)
 
 print(X_recovered.shape)
 
-showPicturePlot(16, X_reduced)
+fig, (ax1, ax2) = plt.subplots(1, 2)
+show_picture_plot(16, X_reduced, ax1)
+# show_picture_plot(64, X_recovered, ax2)
 
 
+plt.show()
+# while True:
+#     s = input('Press enter to continue')
+#     if s == 'c':
+#         break
 
-
-
-
-
-# fig.add_subplot(121, 1)
-#todo add image plot of original and recoveded images
-
+# todo add image plot of original and recoveded images
