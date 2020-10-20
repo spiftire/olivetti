@@ -8,6 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 import pandas
 from functions import show_picture_plot, arranging_picture_vector_as_picture_array
 from matplotlib import use
+from keras.models import Sequential
 
 use('Qt5Agg')
 # plt.ion()
@@ -57,3 +58,4 @@ for i in range(3):
         ax01.imshow(pic01)
 
 plt.show()
+
